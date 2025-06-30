@@ -1,0 +1,73 @@
+inventory = {}
+
+def add_product():
+    name = input("Enter product name: ")
+    qty = int(input("Enter quantity: "))
+    price = float(input("Enter price: "))
+    inventory[name] = {"quantity": qty, "price": price}
+    print("Product added!\n")
+
+def edit_product():
+    name = input("Enter product name to edit: ")
+    if name in inventory:
+        qty = int(input("Enter new quantity: "))
+        price = float(input("Enter new price: "))
+        inventory[name] = {"quantity": qty, "price": price}
+        print("Product updated!\n")
+    else:
+        print("Product not found!\n")
+
+def delete_product():
+    name = input("Enter product name to delete: ")
+    if name in inventory:
+        del inventory[name]
+        print("Product deleted!\n")
+    else:
+        print("Product not found!\n")
+
+def view_inventory():
+    if not inventory:
+        print("Inventory is empty.\n")
+    else:
+        for name, data in inventory.items():
+            print(f"{name} - Qty: {data['quantity']}, Price: ${data['price']}")
+        print()
+
+def low_stock_report():
+    threshold = int(input("Enter low stock threshold: "))
+    found = False
+    for name, data in inventory.items():
+        if data["quantity"] < threshold:
+            print(f"{name} is low in stock (Qty: {data['quantity']})")
+            found = True
+    if not found:
+        print("No low-stock items.\n")
+
+def main():
+    while True:
+        print("\n--- Inventory Menu ---")
+        print("1. Add Product")
+        print("2. Edit Product")
+        print("3. Delete Product")
+        print("4. View Inventory")
+        print("5. Low Stock Report")
+        print("6. Exit")
+
+        choice = input("Choose an option: ")
+        if choice == "1":
+            add_product()
+        elif choice == "2":
+            edit_product()
+        elif choice == "3":
+            delete_product()
+        elif choice == "4":
+            view_inventory()
+        elif choice == "5":
+            low_stock_report()
+        elif choice == "6":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice.\n")
+
+main()
